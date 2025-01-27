@@ -1,4 +1,4 @@
-# ![uTLS](logo_small.png) uTLS
+# ![uTLS](logo_small.png) uTLS-rev The modified uTLS for Project Ether
 [![Build Status](https://github.com/refraction-networking/utls/actions/workflows/go.yml/badge.svg?branch=master)](https://github.com/refraction-networking/utls/actions/workflows/go.yml) 
 [![godoc](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/refraction-networking/utls#UConn)
 ---
