@@ -93,10 +93,12 @@ const (
 	FakeCurveX25519Kyber512Draft00    CurveID = 0xfe30
 	FakeCurveX25519Kyber768Draft00Old CurveID = 0xfe31
 	FakeCurveP256Kyber768Draft00      CurveID = 0xfe32
+	FakeCurveX25519MLKEM768           CurveID = 0x11ec
 
 	X25519Kyber512Draft00    CurveID = FakeCurveX25519Kyber512Draft00
 	X25519Kyber768Draft00Old CurveID = FakeCurveX25519Kyber768Draft00Old
 	P256Kyber768Draft00      CurveID = FakeCurveP256Kyber768Draft00
+	X25519MLKEM768           CurveID = FakeCurveX25519MLKEM768
 )
 
 // Other things
