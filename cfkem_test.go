@@ -92,10 +92,6 @@ func TestHybridKEX(t *testing.T) {
 		})
 	}
 	for _, curveID := range []CurveID{
-		X25519Kyber512Draft00,
-		X25519Kyber768Draft00,
-		X25519Kyber768Draft00Old,
-		P256Kyber768Draft00,
 		X25519MLKEM768,
 	} {
 		run(curveID, true, true, false, false)
