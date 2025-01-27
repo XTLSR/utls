@@ -610,6 +610,7 @@ var (
 	HelloFirefox_102  = ClientHelloID{helloFirefox, "102", nil, nil}
 	HelloFirefox_105  = ClientHelloID{helloFirefox, "105", nil, nil}
 	HelloFirefox_120  = ClientHelloID{helloFirefox, "120", nil, nil}
+	HelloFirefox_133  = ClientHelloID{helloFirefox, "133", nil, nil}
 
 	HelloChrome_Auto        = HelloChrome_120
 	HelloChrome_58          = ClientHelloID{helloChrome, "58", nil, nil}
@@ -640,6 +641,7 @@ var (
 	// Chrome w/ Post-Quantum Key Agreement and Encrypted ClientHello
 	HelloChrome_120_PQ = ClientHelloID{helloChrome, "120_PQ", nil, nil}
 	HelloChrome_131 = ClientHelloID{helloChrome, "131", nil, nil}
+	HelloChrome_131_PSK = ClientHelloID{helloChrome, "131_PSK", nil, nil}
 
 	HelloIOS_Auto = HelloIOS_14
 	HelloIOS_11_1 = ClientHelloID{helloIOS, "111", nil, nil} // legacy "111" means 11.1
