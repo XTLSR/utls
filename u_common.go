@@ -99,7 +99,7 @@ const (
 	X25519Kyber512Draft00    CurveID = FakeCurveX25519Kyber512Draft00
 	X25519Kyber768Draft00Old CurveID = FakeCurveX25519Kyber768Draft00Old
 	P256Kyber768Draft00      CurveID = FakeCurveP256Kyber768Draft00
-	X25519MLKEM768A           CurveID = FakeCurveX25519MLKEM768
+	X25519MLKEM768A           CurveID = FakeCurveX25519MLKEM768A
 )
 
 // Other things
