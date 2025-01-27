@@ -31,16 +31,8 @@ import (
 // Either *ecdh.PrivateKey or *kemPrivateKey
 type clientKeySharePrivate interface{}
 
-type kemPrivateKey struct {
-	secretKey kem.PrivateKey
-	curveID   CurveID
-}
 
 var (
-	X25519Kyber512Draft00    = CurveID(0xfe30)
-	X25519Kyber768Draft00    = CurveID(0x6399)
-	X25519Kyber768Draft00Old = CurveID(0xfe31)
-	P256Kyber768Draft00      = CurveID(0xfe32)
 	X25519MLKEM768           = CurveID(0x11ec)
 	invalidCurveID           = CurveID(0)
 )
