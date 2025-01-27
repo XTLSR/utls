@@ -28,7 +28,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/refraction-networking/utls/testenv"
+	"github.com/uQUIC/utls/testenv"
 )
 
 var rsaCertPEM = `-----BEGIN CERTIFICATE-----
