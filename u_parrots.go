@@ -837,7 +837,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 				&RenegotiationInfoExtension{Renegotiation: RenegotiateOnceAsClient},
 				&SupportedCurvesExtension{[]CurveID{
 					GREASE_PLACEHOLDER,
-					X25519MLKEM768,
+					X25519MLKEM768A,
 					X25519,
 					CurveP256,
 					CurveP384,
@@ -861,7 +861,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 				&SCTExtension{},
 				&KeyShareExtension{[]KeyShare{
 					{Group: CurveID(GREASE_PLACEHOLDER), Data: []byte{0}},
-					{Group: X25519MLKEM768},
+					{Group: X25519MLKEM768A},
 					{Group: X25519},
 				}},
 				&PSKKeyExchangeModesExtension{[]uint8{
@@ -1416,7 +1416,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 				},
 				&SupportedCurvesExtension{
 					Curves: []CurveID{
-						CurveX25519MLKEM768,
+						CurveX25519MLKEM768A,
 						CurveX25519,
 						CurveSECP256R1,
 						CurveSECP384R1,
@@ -1449,7 +1449,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 				&KeyShareExtension{
 					KeyShares: []KeyShare{
 						{
-							Group: CurveX25519MLKEM768,
+							Group: CurveX25519MLKEM768A,
 						},
 						{
 							Group: CurveX25519,
@@ -2799,7 +2799,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 				&StatusRequestExtension{},
 				&SupportedCurvesExtension{[]CurveID{ //supported_groups
 					GREASE_PLACEHOLDER, // Greese
-					CurveX25519MLKEM768,
+					CurveX25519MLKEM768A,
 					CurveX25519,
 					CurveSECP256R1,
 					CurveSECP384R1,
@@ -2817,7 +2817,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 							Group: CurveID(GREASE_PLACEHOLDER), Data: []byte{0},
 						},
 						{
-							Group: CurveX25519MLKEM768,
+							Group: CurveX25519MLKEM768A,
 						},
 						{
 							Group: CurveX25519,
