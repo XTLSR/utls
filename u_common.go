@@ -79,6 +79,7 @@ const (
 	CurveSECP384R1 CurveID = 0x0018
 	CurveSECP521R1 CurveID = 0x0019
 	CurveX25519    CurveID = 0x001d
+	CurveX25519MLKEM768 CurveID = 0x11ec
 
 	FakeCurveFFDHE2048 CurveID = 0x0100
 	FakeCurveFFDHE3072 CurveID = 0x0101
