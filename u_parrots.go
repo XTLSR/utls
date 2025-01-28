@@ -2926,7 +2926,10 @@ func (uconn *UConn) ApplyPreset(p *ClientHelloSpec) error {
 	} else {
 		uconn.HandshakeState.State13.KeyShareKeys = &KeySharePrivateKeys{}
 	}
-	uconn.HandshakeState.State13.KeySharesParams = NewKeySharesParameters()
+	if uconn.HandshakeState.State13.KeySharesParams == nil {
+		uconn.HandshakeState.State13.KeySharesParams = NewKeySharesParameters()
+	}
+
 	hello := uconn.HandshakeState.Hello
 
 	switch len(hello.Random) {
