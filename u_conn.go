@@ -558,6 +558,10 @@ func (c *UConn) clientHandshake(ctx context.Context) (err error) {
 		return err
 	}
 
+	if session != nil {
+		c.clientSentTicket = true
+	}
+
 	if hello.earlyData {
 		suite := cipherSuiteTLS13ByID(session.cipherSuite)
 		transcript := suite.hash.New()
