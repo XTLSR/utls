@@ -174,6 +174,7 @@ const (
 	helloChrome           = "Chrome"
 	helloIOS              = "iOS"
 	helloAndroid          = "Android"
+	helloExplorer         = "InternetExplorer"
 	helloEdge             = "Edge"
 	helloSafari           = "Safari"
 	hello360              = "360Browser"
@@ -652,11 +653,14 @@ var (
 
 	HelloAndroid_11_OkHttp = ClientHelloID{helloAndroid, "11", nil, nil}
 
+	HelloExplorer_11 = ClientHelloID{helloExplorer, "11", nil,nil}
+
 	HelloEdge_Auto = HelloEdge_85 // HelloEdge_106 seems to be incompatible with this library
 	HelloEdge_85   = ClientHelloID{helloEdge, "85", nil, nil}
 	HelloEdge_106  = ClientHelloID{helloEdge, "106", nil, nil}
 
 	HelloSafari_Auto = HelloSafari_16_0
+	HelloSafari_13_1 = ClientHelloID{helloSafari, "13.1", nil, nil}
 	HelloSafari_16_0 = ClientHelloID{helloSafari, "16.0", nil, nil}
 
 	Hello360_Auto = Hello360_7_5 // Hello360_11_0 seems to be incompatible with this library
@@ -665,6 +669,7 @@ var (
 
 	HelloQQ_Auto = HelloQQ_11_1
 	HelloQQ_11_1 = ClientHelloID{helloQQ, "11.1", nil, nil}
+	HelloQQ_10_6 = ClientHelloID{helloQQ, "10.6", nil, nil}
 )
 
 type Weights struct {
