@@ -2578,10 +2578,6 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 						CurveP384,
 					},
 				},
-				&FakeCertCompressionAlgsExtension{
-					Methods: []CertCompressionAlgo{
-						CertCompressionBrotli,
-					},
 				},
 				&UtlsGREASEExtension{},
 			},
