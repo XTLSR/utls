@@ -2578,7 +2578,6 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 						CurveP384,
 					},
 				},
-				},
 				&UtlsGREASEExtension{},
 			},
 		}, nil
