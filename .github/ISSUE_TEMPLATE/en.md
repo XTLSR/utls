@@ -80,7 +80,7 @@ Paste error messages here
 
 ---
 
-<!-- 
+
 🚫 SPAM WARNING:
 Any spam, inappropriate content, or low-effort issues will result in:
 1. Immediate closure of the issue
@@ -92,5 +92,5 @@ Please ensure your issue is:
 - Related to uTLS
 - Not a duplicate
 - Contains sufficient information for reproduction
--->
+
 
