@@ -1,8 +1,8 @@
 name: Issue Report
+
 about: Create a detailed report to help us improve uTLS
+
 title: "[BUG/FEATURE] - "
-labels: ''
-assignees: ''
 
 ---
 
