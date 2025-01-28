@@ -1,6 +1,6 @@
 # ![uTLS](logo_small.png) uTLS-rev:The modified uTLS for Project Ether
-[![Build Status](https://github.com/refraction-networking/utls/actions/workflows/go.yml/badge.svg?branch=master)](https://github.com/refraction-networking/utls/actions/workflows/go.yml) 
-[![godoc](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/refraction-networking/utls#UConn)
+[![Build Status](https://github.com/uQUIC/utls/actions/workflows/go.yml/badge.svg?branch=master)](https://github.com/refraction-networking/utls/actions/workflows/go.yml) 
+[![godoc](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/uQUIC/utls#UConn)
 ---
 此库为完全专有库，LICENSE-Go是按照原协议要求保留Go语言包内部代码的license，并非本项目license。本项目并非开源。
 
