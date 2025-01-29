@@ -2,6 +2,8 @@
 [![Build Status](https://github.com/uQUIC/utls/actions/workflows/go.yml/badge.svg?branch=master)](https://github.com/uQUIC/utls/actions/workflows/go.yml) 
 [![godoc](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/uQUIC/utls#UConn)
 ---
+Fork of https://github.com/refraction-networking/utls. Aiming to carry on the updates of utls.
+
 此库为完全专有库，LICENSE-Go是按照原协议要求保留Go语言包内部代码的license，并非本项目license。本项目并非开源。
 
 uTLS is a fork of "crypto/tls", which provides ClientHello fingerprinting resistance, low-level access to handshake, fake session tickets and some other features. Handshake is still performed by "crypto/tls", this library merely changes ClientHello part of it and provides low-level access.  
