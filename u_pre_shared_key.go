@@ -90,6 +90,27 @@ type PreSharedKeyCommon struct {
 //     > - Implementations should gather and provide the final pre-shared key (PSK) related data.
 //
 //     > - This data will be incorporated into both the clientHello and HandshakeState, ensuring that the PSK-related information is properly set and ready for the handshake process.
+//
+// HelloRetryRequest Phase (server selects a different curve supported but not selected by the client):
+//
+//   - [UpdateOnHRR() called]:
+//
+//     > - Implementations should update the extension's state accordingly and save the first Client Hello's hash.
+//
+//     > - The binders should be recalculated based on the updated state LATER when PatchBuiltHello() and/or GetPreSharedKeyCommon() is called.
+//
+//   - [PatchBuiltHello() called]:
+//
+//     > - The client hello is already marshaled in the "hello.Raw" format.
+//
+//     > - Implementations are expected to update the binders within the marshaled client hello.
+//
+//   - [GetPreSharedKeyCommon() called]:
+//
+//     > - Implementations should gather and provide the final pre-shared key (PSK) related data.
+//
+//     > - This data will be incorporated into both the clientHello and HandshakeState, ensuring that the PSK-related information is properly set and ready for the handshake process.
+
 
 type PreSharedKeyExtension interface {
 	// TLSExtension must be implemented by all PreSharedKeyExtension implementations.
@@ -110,6 +131,7 @@ type PreSharedKeyExtension interface {
 	// PatchBuiltHello is called once the hello message is fully applied and marshaled.
 	// Its purpose is to update the binders of PSK (Pre-Shared Key) identities.
 	PatchBuiltHello(hello *PubClientHelloMsg) error
+
 
 	UpdateOnHRR(prevClientHelloHash []byte, hs *clientHandshakeStateTLS13, timeNow time.Time) error
 
