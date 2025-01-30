@@ -47,7 +47,9 @@ const (
 	fakeExtensionDelegatedCredentials uint16 = 34
 	fakeExtensionPreSharedKey         uint16 = 41
 	fakeOldExtensionChannelID         uint16 = 30031 // not IANA assigned
+	fakeExtensionChannelIDOld         uint16 = 30031 // not IANA assigned
 	fakeExtensionChannelID            uint16 = 30032 // not IANA assigned
+	fakeExtensionALPS                 uint16 = 17513 // not IANA assigned
 )
 
 const (
@@ -621,6 +623,7 @@ var (
 	HelloChrome_72          = ClientHelloID{helloChrome, "72", nil, nil}
 	HelloChrome_83          = ClientHelloID{helloChrome, "83", nil, nil}
 	HelloChrome_87          = ClientHelloID{helloChrome, "87", nil, nil}
+	HelloChrome_95          = ClientHelloID{helloChrome, "95", nil, nil}
 	HelloChrome_96          = ClientHelloID{helloChrome, "96", nil, nil}
 	HelloChrome_98          = ClientHelloID{helloChrome, "98", nil, nil}
 	HelloChrome_100         = ClientHelloID{helloChrome, "100", nil, nil}
