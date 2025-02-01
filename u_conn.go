@@ -746,21 +746,7 @@ func (uconn *UConn) GetOutKeystream(length int) ([]byte, error) {
 // Error is only returned if things are in clearly undesirable state
 // to help user fix them.
 func (uconn *UConn) SetTLSVers(minTLSVers, maxTLSVers uint16, specExtensions []TLSExtension) error {
-  
-	minTLSVers, maxTLSVers, err := getTLSVers(minTLSVers, maxTLSVers, specExtensions)
-	if err != nil {
-		return err
-	}
-
-	uconn.HandshakeState.Hello.SupportedVersions = makeSupportedVersions(minTLSVers, maxTLSVers)
-	uconn.config.MinVersion = minTLSVers
-	uconn.config.MaxVersion = maxTLSVers
-
-	return nil
-}
-
-func getTLSVers(minTLSVers, maxTLSVers uint16, specExtensions []TLSExtension) (uint16, uint16, error) {
-  if minTLSVers == 0 && maxTLSVers == 0 {
+	if minTLSVers == 0 && maxTLSVers == 0 {
 		// if version is not set explicitly in the ClientHelloSpec, check the SupportedVersions extension
 		supportedVersionsExtensionsPresent := 0
 		for _, e := range specExtensions {
@@ -787,7 +773,7 @@ func getTLSVers(minTLSVers, maxTLSVers uint16, specExtensions []TLSExtension) (u
 				supportedVersionsExtensionsPresent += 1
 				minTLSVers, maxTLSVers = findVersionsInSupportedVersionsExtensions(ext.Versions)
 				if minTLSVers == 0 && maxTLSVers == 0 {
-					return 0, 0, fmt.Errorf("SupportedVersions extension has invalid Versions field")
+					return fmt.Errorf("SupportedVersions extension has invalid Versions field")
 				} // else: proceed
 			}
 		}
@@ -798,20 +784,24 @@ func getTLSVers(minTLSVers, maxTLSVers uint16, specExtensions []TLSExtension) (u
 			maxTLSVers = VersionTLS12
 		case 1:
 		default:
-			return 0, 0, fmt.Errorf("uconn.Extensions contains %v separate SupportedVersions extensions",
+			return fmt.Errorf("uconn.Extensions contains %v separate SupportedVersions extensions",
 				supportedVersionsExtensionsPresent)
 		}
 	}
 
 	if minTLSVers < VersionTLS10 || minTLSVers > VersionTLS13 {
-		return 0, 0, fmt.Errorf("uTLS does not support 0x%X as min version", minTLSVers)
+		return fmt.Errorf("uTLS does not support 0x%X as min version", minTLSVers)
 	}
 
 	if maxTLSVers < VersionTLS10 || maxTLSVers > VersionTLS13 {
-		return 0, 0, fmt.Errorf("uTLS does not support 0x%X as max version", maxTLSVers)
+		return fmt.Errorf("uTLS does not support 0x%X as max version", maxTLSVers)
 	}
 
-	return minTLSVers, maxTLSVers, nil
+	uconn.HandshakeState.Hello.SupportedVersions = makeSupportedVersions(minTLSVers, maxTLSVers)
+	uconn.config.MinVersion = minTLSVers
+	uconn.config.MaxVersion = maxTLSVers
+
+	return nil
 }
 
 func (uconn *UConn) SetUnderlyingConn(c net.Conn) {
