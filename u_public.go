@@ -606,14 +606,6 @@ func (cs *cipherSuite) getPublicObj() PubCipherSuite {
 	}
 }
 
-// UnmarshalClientHello Allows external code to parse raw client hellos.
-func UnmarshalClientHello(data []byte) (*ClientHelloMsg, error) {
-	m := &clientHelloMsg{}
-	if m.unmarshal(data) {
-		return m.getPublicPtr(), nil
-	}
-	return nil, errors.New("Could not parse hello data")
-}
 
 // A FinishedHash calculates the hash of a set of handshake messages suitable
 // for including in a Finished message.
