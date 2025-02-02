@@ -11,7 +11,6 @@ import (
 	"fmt"
 	"hash"
 	"time"
-	"errors"
 
 	"github.com/cloudflare/circl/kem"
 	"github.com/cloudflare/circl/kem/hybrid"
@@ -605,7 +604,6 @@ func (cs *cipherSuite) getPublicObj() PubCipherSuite {
 		}
 	}
 }
-
 
 // A FinishedHash calculates the hash of a set of handshake messages suitable
 // for including in a Finished message.

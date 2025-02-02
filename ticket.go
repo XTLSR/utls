@@ -363,10 +363,6 @@ func (c *Config) DecryptTicket(identity []byte, cs ConnectionState) (*SessionSta
 }
 
 func (c *Config) decryptTicket(encrypted []byte, ticketKeys []ticketKey) []byte {
-	return DecryptTicketWith(encrypted, c.config)
-}
-
-func DecryptTicketWith(encrypted []byte, config *Config) (plaintext []byte, usedOldKey bool) {
 	if len(encrypted) < aes.BlockSize+sha256.Size {
 		return nil
 	}
