@@ -633,7 +633,6 @@ var (
 	// Chrome w/ PSK: Chrome start sending this ClientHello after doing TLS 1.3 handshake with the same server.
 	// Beta: PSK extension added. However, uTLS doesn't ship with full PSK support.
 	// Use at your own discretion.
-  HelloChrome_PSK_Auto             = HelloChrome_114_Padding_PSK_Shuf
 	HelloChrome_100_PSK              = ClientHelloID{helloChrome, "100_PSK", nil, nil}
 	HelloChrome_112_PSK_Shuf         = ClientHelloID{helloChrome, "112_PSK", nil, nil}
 	HelloChrome_114_Padding_PSK_Shuf = ClientHelloID{helloChrome, "114_PSK", nil, nil}
@@ -658,7 +657,6 @@ var (
 
 	HelloAndroid_11_OkHttp = ClientHelloID{helloAndroid, "11", nil, nil}
 
-  HelloExplorer_Auto = HelloExplorer_11
 	HelloExplorer_11 = ClientHelloID{helloExplorer, "11", nil,nil}
 
 	HelloEdge_Auto = HelloEdge_85 // HelloEdge_106 seems to be incompatible with this library

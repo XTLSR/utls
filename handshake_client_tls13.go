@@ -14,7 +14,6 @@ import (
 	"crypto/subtle"
 	"errors"
 	"fmt"
-  "log"
 	"hash"
 	"slices"
 	"time"
@@ -230,9 +229,6 @@ func (hs *clientHandshakeStateTLS13) handshake() error {
 	}
 	// [UTLS SECTION START]
 	if err := hs.serverFinishedReceived(); err != nil {
-		return err
-	}
-  if err := hs.sendClientEncryptedExtensions(); err != nil {
 		return err
 	}
 	// [UTLS SECTION END]
@@ -469,6 +465,10 @@ func (hs *clientHandshakeStateTLS13) processHelloRetryRequest() error {
 	// and utlsExtensionPadding are supposed to change
 	if hs.uconn != nil {
 		if hs.uconn.ClientHelloID != HelloGolang {
+			if len(hs.hello.pskIdentities) > 0 {
+				// TODO: wait for someone who cares about PSK to implement
+				return errors.New("uTLS does not support reprocessing of PSK key triggered by HelloRetryRequest")
+			}
 
 			keyShareExtFound := false
 			for _, ext := range hs.uconn.Extensions {
@@ -514,21 +514,6 @@ func (hs *clientHandshakeStateTLS13) processHelloRetryRequest() error {
 			if err := hs.uconn.MarshalClientHello(); err != nil {
 				return err
 			}
-      if len(hs.hello.pskIdentities) > 0 {
-				for _, ext := range hs.uconn.Extensions {
-					if psk, ok := ext.(PreSharedKeyExtension); ok {
-						if err := psk.UpdateOnHRR(chHash, hs, c.config.time()); err != nil {
-							hs.uconn.HandshakeState.Hello.PskIdentities = nil
-							hs.uconn.HandshakeState.Hello.PskBinders = nil
-							log.Printf("[Error] PreSharedKeyExtension.UpdateOnHRR failed: %v", err)
-						} else {
-							psk.PatchBuiltHello(hs.uconn.HandshakeState.Hello)
-						}
-						break
-					}
-				}
-			}
-
 			hs.hello.original = hs.uconn.HandshakeState.Hello.Raw
 		}
 	}
@@ -739,18 +724,7 @@ func (hs *clientHandshakeStateTLS13) readServerParameters() error {
 		return err
 	}
 	c.clientProtocol = encryptedExtensions.alpnProtocol
-  c.hasApplicationSettings = encryptedExtensions.hasApplicationSettings
-	c.peerApplicationSettings = encryptedExtensions.applicationSettings
 
-	if c.hasApplicationSettings {
-		if c.vers < VersionTLS13 {
-			return errors.New("tls: server sent application settings at invalid version")
-		}
-		if len(c.clientProtocol) == 0 {
-			return errors.New("tls: server sent application settings without ALPN")
-		}
-		c.localApplicationSettings = c.config.ApplicationSettings[hs.serverHello.alpnProtocol]
-	}
 	// [UTLS SECTION STARTS]
 	if hs.uconn != nil {
 		err = hs.utlsReadServerParameters(encryptedExtensions)
@@ -1067,20 +1041,6 @@ func (hs *clientHandshakeStateTLS13) sendClientFinished() error {
 		c.quicSetWriteSecret(QUICEncryptionLevelApplication, hs.suite.id, hs.trafficSecret)
 	}
 
-	return nil
-}
-
-func (hs *clientHandshakeStateTLS13) sendClientEncryptedExtensions() error {
-	c := hs.c
-	clientEncryptedExtensions := new(clientEncryptedExtensionsMsg)
-	if c.hasApplicationSettings {
-		clientEncryptedExtensions.hasApplicationSettings = true
-		clientEncryptedExtensions.applicationSettings = c.localApplicationSettings
-		hs.transcript.Write(clientEncryptedExtensions.marshal())
-		if _, err := c.writeRecord(recordTypeHandshake, clientEncryptedExtensions.marshal()); err != nil {
-			return err
-		}
-	}
 	return nil
 }
 
