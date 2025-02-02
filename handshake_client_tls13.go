@@ -14,6 +14,7 @@ import (
 	"crypto/subtle"
 	"errors"
 	"fmt"
+  "log"
 	"hash"
 	"slices"
 	"time"
@@ -465,10 +466,6 @@ func (hs *clientHandshakeStateTLS13) processHelloRetryRequest() error {
 	// and utlsExtensionPadding are supposed to change
 	if hs.uconn != nil {
 		if hs.uconn.ClientHelloID != HelloGolang {
-			if len(hs.hello.pskIdentities) > 0 {
-				// TODO: wait for someone who cares about PSK to implement
-				return errors.New("uTLS does not support reprocessing of PSK key triggered by HelloRetryRequest")
-			}
 
 			keyShareExtFound := false
 			for _, ext := range hs.uconn.Extensions {
@@ -514,6 +511,21 @@ func (hs *clientHandshakeStateTLS13) processHelloRetryRequest() error {
 			if err := hs.uconn.MarshalClientHello(); err != nil {
 				return err
 			}
+      if len(hs.hello.pskIdentities) > 0 {
+				for _, ext := range hs.uconn.Extensions {
+					if psk, ok := ext.(PreSharedKeyExtension); ok {
+						if err := psk.UpdateOnHRR(chHash, hs, c.config.time()); err != nil {
+							hs.uconn.HandshakeState.Hello.PskIdentities = nil
+							hs.uconn.HandshakeState.Hello.PskBinders = nil
+							log.Printf("[Error] PreSharedKeyExtension.UpdateOnHRR failed: %v", err)
+						} else {
+							psk.PatchBuiltHello(hs.uconn.HandshakeState.Hello)
+						}
+						break
+					}
+				}
+			}
+
 			hs.hello.original = hs.uconn.HandshakeState.Hello.Raw
 		}
 	}
