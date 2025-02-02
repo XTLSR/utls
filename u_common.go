@@ -658,6 +658,7 @@ var (
 
 	HelloAndroid_11_OkHttp = ClientHelloID{helloAndroid, "11", nil, nil}
 
+  HelloExplorer_Auto = HelloExplorer_11
 	HelloExplorer_11 = ClientHelloID{helloExplorer, "11", nil,nil}
 
 	HelloEdge_Auto = HelloEdge_85 // HelloEdge_106 seems to be incompatible with this library
