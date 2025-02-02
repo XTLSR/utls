@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"hash"
 	"time"
+	"errors"
 
 	"github.com/cloudflare/circl/kem"
 	"github.com/cloudflare/circl/kem/hybrid"
@@ -603,6 +604,15 @@ func (cs *cipherSuite) getPublicObj() PubCipherSuite {
 			Aead:   cs.aead,
 		}
 	}
+}
+
+// UnmarshalClientHello Allows external code to parse raw client hellos.
+func UnmarshalClientHello(data []byte) (*ClientHelloMsg, error) {
+	m := &clientHelloMsg{}
+	if m.unmarshal(data) {
+		return m.getPublicPtr(), nil
+	}
+	return nil, errors.New("Could not parse hello data")
 }
 
 // A FinishedHash calculates the hash of a set of handshake messages suitable
