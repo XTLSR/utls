@@ -100,6 +100,10 @@ type Conn struct {
 	// clientProtocol is the negotiated ALPN protocol.
 	clientProtocol string
 
+  hasApplicationSettings   bool
+	peerApplicationSettings  []byte
+	localApplicationSettings []byte
+
 	utls utlsConnExtraFields // [UTLS] used for extensive things such as ALPS, PSK, etc
 
 	// input/output
@@ -1161,8 +1165,12 @@ func (c *Conn) unmarshalHandshakeMessage(data []byte, transcript transcriptHash)
 		m = new(finishedMsg)
 	// [uTLS] Commented typeEncryptedExtensions to force
 	// utlsHandshakeMessageType to handle it
-	// case typeEncryptedExtensions:
-	// 	m = new(encryptedExtensionsMsg)
+	case typeEncryptedExtensions:
+	  if c.isClient {
+			m = new(encryptedExtensionsMsg)
+		} else {
+			m = new(clientEncryptedExtensionsMsg)
+		}
 	case typeEndOfEarlyData:
 		m = new(endOfEarlyDataMsg)
 	case typeKeyUpdate:
@@ -1643,7 +1651,8 @@ func (c *Conn) connectionStateLocked() ConnectionState {
 	state.HandshakeComplete = c.isHandshakeComplete.Load()
 	state.Version = c.vers
 	state.NegotiatedProtocol = c.clientProtocol
-	state.DidResume = c.didResume
+  state.PeerApplicationSettings = c.peerApplicationSettings
+  state.DidResume = c.didResume
 	state.testingOnlyDidHRR = c.didHRR
 	// c.curveID is not set on TLS 1.0–1.2 resumptions. Fix that before exposing it.
 	state.testingOnlyCurveID = c.curveID

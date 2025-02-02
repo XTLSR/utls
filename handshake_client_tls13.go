@@ -232,6 +232,9 @@ func (hs *clientHandshakeStateTLS13) handshake() error {
 	if err := hs.serverFinishedReceived(); err != nil {
 		return err
 	}
+  if err := hs.sendClientEncryptedExtensions(); err != nil {
+		return err
+	}
 	// [UTLS SECTION END]
 	if err := hs.sendClientCertificate(); err != nil {
 		return err
@@ -736,7 +739,18 @@ func (hs *clientHandshakeStateTLS13) readServerParameters() error {
 		return err
 	}
 	c.clientProtocol = encryptedExtensions.alpnProtocol
+  c.hasApplicationSettings = encryptedExtensions.hasApplicationSettings
+	c.peerApplicationSettings = encryptedExtensions.applicationSettings
 
+	if c.hasApplicationSettings {
+		if c.vers < VersionTLS13 {
+			return errors.New("tls: server sent application settings at invalid version")
+		}
+		if len(c.clientProtocol) == 0 {
+			return errors.New("tls: server sent application settings without ALPN")
+		}
+		c.localApplicationSettings = c.config.ApplicationSettings[hs.serverHello.alpnProtocol]
+	}
 	// [UTLS SECTION STARTS]
 	if hs.uconn != nil {
 		err = hs.utlsReadServerParameters(encryptedExtensions)
@@ -1053,6 +1067,20 @@ func (hs *clientHandshakeStateTLS13) sendClientFinished() error {
 		c.quicSetWriteSecret(QUICEncryptionLevelApplication, hs.suite.id, hs.trafficSecret)
 	}
 
+	return nil
+}
+
+func (hs *clientHandshakeStateTLS13) sendClientEncryptedExtensions() error {
+	c := hs.c
+	clientEncryptedExtensions := new(clientEncryptedExtensionsMsg)
+	if c.hasApplicationSettings {
+		clientEncryptedExtensions.hasApplicationSettings = true
+		clientEncryptedExtensions.applicationSettings = c.localApplicationSettings
+		hs.transcript.Write(clientEncryptedExtensions.marshal())
+		if _, err := c.writeRecord(recordTypeHandshake, clientEncryptedExtensions.marshal()); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
