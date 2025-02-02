@@ -628,6 +628,7 @@ var (
 	HelloChrome_98          = ClientHelloID{helloChrome, "98", nil, nil}
 	HelloChrome_100         = ClientHelloID{helloChrome, "100", nil, nil}
 	HelloChrome_102         = ClientHelloID{helloChrome, "102", nil, nil}
+	HelloChrome_106         = ClientHelloID{helloChrome, "106", nil, nil}
 	HelloChrome_106_Shuffle = ClientHelloID{helloChrome, "106", nil, nil} // TLS Extension shuffler enabled starting from 106
 
 	// Chrome w/ PSK: Chrome start sending this ClientHello after doing TLS 1.3 handshake with the same server.
