@@ -10,9 +10,7 @@ uTLS is a fork of "crypto/tls", which provides ClientHello fingerprinting resist
 
 **Minimum Go Version**: Go 1.21 
 
-If you have any questions, bug reports or contributions, you are welcome to publish those on GitHub. If you want to do so in private, ~~you can contact one of developers personally via sergey.frolov@colorado.edu~~.
-
-You can contact one of developers personally via gaukas.wang@colorado.edu.
+If you have any questions, bug reports or contributions, you are welcome to publish those on GitHub.
 
 Documentation below may not keep up with all the changes and new features at all times,
 so you are encouraged to use [godoc](https://godoc.org/github.com/refraction-networking/utls#UConn).
