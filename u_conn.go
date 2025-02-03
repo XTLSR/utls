@@ -559,7 +559,7 @@ func (c *UConn) clientHandshake(ctx context.Context) (err error) {
 	// a compatibility measure (see RFC 8446, Section 4.1.2).
 	if c.config.SessionIDGenerator != nil {
 		hello.sessionId = make([]byte, 32)
-		hello.raw = nil
+		hello.original = nil
 		data, err := hello.marshal()
 		if err != nil {
 			return err
@@ -568,7 +568,7 @@ func (c *UConn) clientHandshake(ctx context.Context) (err error) {
 		if err != nil {
 			return errors.New("tls: generate session id failed: " + err.Error())
 		}
-		hello.raw = nil
+		hello.original = nil
 	}
 
 	if _, err := c.writeHandshakeRecord(hello, nil); err != nil {
