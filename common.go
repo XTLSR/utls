@@ -846,8 +846,6 @@ type Config struct {
 	// used for debugging.
 	KeyLogWriter io.Writer
 
-	SessionIDGenerator func(clientHello []byte, sessionID []byte) error
-
 	// EncryptedClientHelloConfigList is a serialized ECHConfigList. If
 	// provided, clients will attempt to connect to servers using Encrypted
 	// Client Hello (ECH) using one of the provided ECHConfigs. Servers
@@ -986,7 +984,6 @@ func (c *Config) Clone() *Config {
 		DynamicRecordSizingDisabled:         c.DynamicRecordSizingDisabled,
 		Renegotiation:                       c.Renegotiation,
 		KeyLogWriter:                        c.KeyLogWriter,
-		SessionIDGenerator:          c.SessionIDGenerator,
 		EncryptedClientHelloConfigList:      c.EncryptedClientHelloConfigList,
 		EncryptedClientHelloRejectionVerify: c.EncryptedClientHelloRejectionVerify,
 		sessionTicketKeys:                   c.sessionTicketKeys,
