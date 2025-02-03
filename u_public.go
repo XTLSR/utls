@@ -538,16 +538,6 @@ func (chm *clientHelloMsg) getPublicPtr() *PubClientHelloMsg {
 	}
 }
 
-// UnmarshalClientHello allows external code to parse raw client hellos.
-// It returns nil on failure.
-func UnmarshalClientHello(data []byte) *PubClientHelloMsg {
-	m := &clientHelloMsg{}
-	if m.unmarshal(data) {
-		return m.getPublicPtr()
-	}
-	return nil
-}
-
 // Marshal allows external code to convert a ClientHello object back into
 // raw bytes.
 func (chm *PubClientHelloMsg) Marshal() ([]byte, error) {
