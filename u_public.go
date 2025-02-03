@@ -480,17 +480,6 @@ func (chm *PubClientHelloMsg) getPrivatePtr() *clientHelloMsg {
 	}
 }
 
-// UnmarshalClientHello allows external code to parse raw client hellos.
-// It returns nil on failure.
-func UnmarshalClientHello(data []byte) *ClientHelloMsg {
-	m := &clientHelloMsg{}
-	if m.unmarshal(data) {
-		return m.getPublicPtr()
-	}
-	return nil
-}
-
-
 func (chm *PubClientHelloMsg) getCachedPrivatePtr() *clientHelloMsg {
 	if chm == nil {
 		return nil
@@ -536,6 +525,16 @@ func (chm *clientHelloMsg) getPublicPtr() *PubClientHelloMsg {
 			cachedPrivateHello:               chm,
 		}
 	}
+}
+
+// UnmarshalClientHello allows external code to parse raw client hellos.
+// It returns nil on failure.
+func UnmarshalClientHello(data []byte) *PubClientHelloMsg {
+	m := &clientHelloMsg{}
+	if m.unmarshal(data) {
+		return m.getPublicPtr()
+	}
+	return nil
 }
 
 // Marshal allows external code to convert a ClientHello object back into

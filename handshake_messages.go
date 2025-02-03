@@ -69,7 +69,6 @@ func readUint24LengthPrefixed(s *cryptobyte.String, out *[]byte) bool {
 }
 
 type clientHelloMsg struct {
-	raw                              []byte
 	original                         []byte
 	vers                             uint16
 	random                           []byte
