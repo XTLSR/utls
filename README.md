@@ -6,6 +6,8 @@ Fork of https://github.com/refraction-networking/utls. Aiming to carry on the up
 
 此库为完全专有库，LICENSE-Go是按照原协议要求保留Go语言包内部代码的license，并非本项目license。本项目并非开源。
 
+**commit里面可能会出现v2ray创始人Darien Raymond，那只是一个joke，同时测试co-author功能，Darien Raymond和这个项目没有任何关系。**
+
 uTLS is a fork of "crypto/tls", which provides ClientHello fingerprinting resistance, low-level access to handshake, fake session tickets and some other features. Handshake is still performed by "crypto/tls", this library merely changes ClientHello part of it and provides low-level access.  
 
 **Minimum Go Version**: Go 1.21 
