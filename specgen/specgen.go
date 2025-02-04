@@ -2,19 +2,19 @@
 package specgen
 
 import (
-	"errors"
-	"fmt"
-	"io"
-	"reflect"
+    "errors"
+    "fmt"
+    "io"
+    "reflect"
 
-	tls "github.com/uQUIC/utls"
+    tls "github.com/uQUIC/utls"
 )
 
 const (
-	// When we print byte slices, we print this many bytes per line.
-	bytesPerLine = 12
+    // When we print byte slices, we print this many bytes per line.
+    bytesPerLine = 12
 
-	tlsRecordHeaderLen = 5
+    tlsRecordHeaderLen = 5
 )
 
 // WriteHelloSpec writes a utls.ClientHelloSpec corresponding to the input ClientHello.
@@ -24,15 +24,16 @@ const (
 // "tls.TLS_AES_128_GCM_SHA256" in the output code. If packagePrefix is the empty string, then no
 // qualifier will be used. The example cipher suite would be printed as "TLS_AES_128_GCM_SHA256".
 func WriteHelloSpec(w io.Writer, clientHello []byte, packagePrefix string) error {
-	prefix := ""
-	if packagePrefix != "" {
-		prefix = packagePrefix + "."
-	}
+    prefix := ""
+    if packagePrefix != "" {
+        prefix = packagePrefix + "."
+    }
 
-	helloSpec, err := tls.FingerprintClientHello(clientHello[tlsRecordHeaderLen:])
-	if err != nil {
-		return fmt.Errorf("failed to fingerprint hello: %w", err)
-	}
+    fingerprinter := &tls.Fingerprinter{}
+    helloSpec, err := fingerprinter.RawClientHello(clientHello[tlsRecordHeaderLen:])
+    if err != nil {
+        return fmt.Errorf("failed to fingerprint hello: %w", err)
+    }
 
 	fmt.Fprintf(w, "%sClientHelloSpec{\n", prefix)
 
