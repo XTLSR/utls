@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/getlantern/utls/specgen/specgen/hellocap"
+	"github.com/uQUIC/utls/specgen/specgen/hellocap"
 )
 
 func handler(w http.ResponseWriter, req *http.Request) {
