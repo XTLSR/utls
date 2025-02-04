@@ -7,7 +7,7 @@ import (
 	"io"
 	"reflect"
 
-	tls "github.com/getlantern/utls"
+	tls "github.com/uQUIC/utls"
 )
 
 const (
