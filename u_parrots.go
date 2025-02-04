@@ -1,5 +1,4 @@
-// Copyright 2017 Google Inc. All rights reserved.
-// Use of this source code is governed by a BSD-style
+// Copyright 2025 Project Ether. All rights reserved.
 // license that can be found in the LICENSE file.
 
 package tls
@@ -3410,7 +3409,7 @@ func (uconn *UConn) ApplyPreset(p *ClientHelloSpec) error {
 		return err
 	}
 
-	privateHello, clientKeySharePrivate, _, err := uconn.makeClientHelloForApplyPreset()
+	privateHello, clientKeySharePrivate, ech, err := uconn.makeClientHelloForApplyPreset()
 	if err != nil {
 		return err
 	}
@@ -3423,6 +3422,7 @@ func (uconn *UConn) ApplyPreset(p *ClientHelloSpec) error {
 	if uconn.HandshakeState.State13.KeySharesParams == nil {
 		uconn.HandshakeState.State13.KeySharesParams = NewKeySharesParameters()
 	}
+	uconn.echCtx = ech
 
 	hello := uconn.HandshakeState.Hello
 
