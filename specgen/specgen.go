@@ -29,7 +29,7 @@ func WriteHelloSpec(w io.Writer, clientHello []byte, packagePrefix string) error
 		prefix = packagePrefix + "."
 	}
 
-//	helloSpec, err := tls.FingerprintClientHello(clientHello[tlsRecordHeaderLen:])
+	helloSpec, err := tls.FingerprintClientHello(clientHello[tlsRecordHeaderLen:])
 	if err != nil {
 		return fmt.Errorf("failed to fingerprint hello: %w", err)
 	}
