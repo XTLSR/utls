@@ -2,6 +2,9 @@ package main
 
 import (
 	"bufio"
+	// "crypto/tls"
+	"encoding/base64"
+	
 	"errors"
 	"fmt"
 	"io"
